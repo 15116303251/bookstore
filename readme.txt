@@ -1,1 +1,1 @@
-git is a good idea ，is a good girl,hello worlds style a
+git is a good idea。 
