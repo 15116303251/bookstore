@@ -1,0 +1,295 @@
+.container {
+    width: 990px;
+    margin: 0 auto;
+}
+.checkout-tit {
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    font-family: "Microsoft YaHei";
+    overflow: hidden;
+}
+.checkout-tit .extra-l, .checkout-tit .tit-txt {
+    float: left;
+}
+.checkout-steps {
+    background-color: #fff;
+    padding: 0 20px;
+    border: 1px solid #f0f0f0;
+}
+.checkout-steps .step-tit {
+    line-height: 40px;
+    height: 40px;
+    color: #333;
+}
+.checkout-steps .step-tit h3 {
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+}
+.checkout-steps .step-tit .extra-r {
+    float: right;
+}
+.ftx-05, .ftx05 {
+    color: #005ea7;
+}
+a {
+    color: #666;
+    text-decoration: none;
+}
+.checkout-steps .step-cont {
+    margin-bottom: 10px;
+}
+.consignee-content {
+    overflow: hidden;
+    /*max-height: 168px;*/
+}
+.consignee-scrollbar {
+    width: 938px;
+}
+.consignee-scroll {
+    position: relative;
+    zoom: 1;
+}
+.consignee-scroll .consignee-cont {
+    margin: 0 10px 0 20px;
+    overflow: hidden;
+    position: relative;
+}
+.consignee-scroll .consignee-cont ul {
+    width: 99.8%;
+}
+.consignee-scroll .consignee-cont li {
+    list-style: none;
+    height: 30px;
+    margin: 6px 0;
+    float: left;
+    width: 99.8%;
+}
+.consignee-scroll .consignee-item.item-hover, .consignee-scroll .consignee-item.item-selected, .consignee-scroll .consignee-item:hover {
+    border: 2px solid #e4393c;
+    padding: 4px 10px;
+}
+.consignee-scroll .consignee-item {
+    list-style: none;
+    position: relative;
+    border: 1px solid #ddd;
+    height: 18px;
+    line-height: 18px;
+    padding: 5px 10px;
+    width: 120px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+}
+.consignee-scroll .consignee-item.item-selected b {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 128px;
+    width: 12px;
+    height: 12px;
+    overflow: hidden;
+    background: url(//misc.360buyimg.com/user/purchase/2.0.0/css/i/selected-icon.png) no-repeat;
+}
+
+.consignee-scroll .consignee-cont .consignee-item, .consignee-scroll .consignee-cont .consignee-item-disable {
+    float: left;
+}
+/*.consignee-item {*/
+    /*border: 1px solid #ddd;*/
+/*}*/
+.consignee-scroll .consignee-cont .addr-detail {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+}
+.consignee-scroll .consignee-cont .addr-detail span {
+    display: inline-block;
+    margin-left: 10px;
+}
+.consignee-scroll .consignee-cont .addr-ops, .consignee-scroll .consignee-cont .op-btns {
+    visibility: hidden;
+    float: right;
+    text-align: right;
+    height: 30px;
+    line-height: 30px;
+}
+.li-hover {
+    background-color: #fff3f3;
+}
+.addr-hover {
+    border: 2px solid #e4393c;
+    padding:4px 23px;
+    cursor: pointer;
+}
+/*.consignee-scroll .consignee-cont li {*/
+    /*margin-bottom: 15px;*/
+/*}*/
+.hr {
+    border-bottom: 1px solid #e6e6e6;
+    height: 0;
+    margin-bottom: 10px;
+}
+.com-cont {
+    margin: 0 10px 0 20px;
+    overflow: hidden;
+}
+
+.goods-items {
+    padding: 0 20px;
+}
+.goods-item-extra {
+    border: none;
+    margin-bottom: 0;
+}
+.goods-item .p-img {
+    float: left;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    background-color: #fff;
+}
+.goods-item .p-img img {
+    width: 80px;
+    height: 80px;
+}
+.goods-item .goods-msg {
+    float: left;
+    width: 484px;
+}
+.goods-item .goods-msg-gel {
+    float: left;
+    width: 484px;
+}
+.goods-item .p-name {
+    float: left;
+    width: 49.8%;
+    height: 3em;
+    line-height: 1.5em;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.fresh-icon {
+    display: inline-block;
+    background-image: url(//misc.360buyimg.com/user/purchase/2.0.0/widget/shopping-list/i/fresh-icon.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    height: 16px;
+    width: 48px;
+    vertical-align: middle;
+}
+.mr5 {
+    margin-right: 5px;
+}
+.goods-item .p-name a {
+    color: #666;
+}
+.goods-item .p-price {
+    float: right;
+    width: 48.8%;
+    margin: 0 0 5px;
+}
+.goods-item .p-price .jd-price {
+    width: 100px;
+    text-align: right;
+}
+.goods-item .p-price strong {
+    font-family: verdana;
+    color: #e4393c;
+    display: inline-block;
+    vertical-align: middle;
+}
+.goods-item .p-price .p-num {
+    width: 70px;
+    text-align: right;
+}
+.goods-item .p-price span {
+    display: inline-block;
+    /*vertical-align: middle;*/
+}
+.goods-item .p-price .p-weight {
+    width: 100px;
+    text-align: right;
+}
+
+.trade-foot {
+    font-family: "Microsoft YaHei",SimSun,verdana;
+}
+.trade-foot-detail-com {
+    padding: 15px 10px 15px 0;
+    line-height: 20px;
+    text-align: right;
+    border-top: 1px solid #e6e6e6;
+    width: 980px;
+    color: #999;
+    background-color: #f4f4f4;
+}
+.trade-foot-detail-com .fc-baitiao-info, .trade-foot-detail-com .fc-consignee-info, .trade-foot-detail-com .fc-price-info, .trade-foot-detail-com .presale-price-info {
+    margin-right: 10px;
+    line-height: 25px;
+}
+.trade-foot-detail-com .fc-price-info .price-tit, .trade-foot-detail-com .presale-price-info .price-tit {
+    color: #666;
+}
+.trade-foot-detail-com .fc-price-info .price-num, .trade-foot-detail-com .presale-price-info .price-num {
+    color: #e4393c;
+    font-family: Verdana;
+    font-weight: 700;
+    font-size: 18px;
+    min-width: 122px;
+    _width: 122px;
+    float: right;
+    text-align: right;
+}
+.mr20 {
+    margin-right: 20px;
+}
+#checkout-floatbar {
+    clear: both;
+    width: 990px;
+    margin-bottom: 20px;
+}
+.checkout-buttons {
+    position: relative;
+    width: 990px;
+    height: 50px;
+}
+.checkout-buttons .sticky-wrap {
+    position: relative;
+    _zoom: 1;
+}
+.checkout-buttons .sticky-wrap .inner {
+    padding: 0 10px;
+}
+.checkout-buttons .checkout-submit {
+    float: right;
+    position: relative;
+    width: 135px;
+    height: 36px;
+    line-height: 36px;
+    margin: 8px 10px 0 0;
+    padding: 0;
+    background-color: #e00;
+    overflow: hidden;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: arial,"Microsoft YaHei";
+    display: inline-block;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 0;
+}
+.checkout-buttons .checkout-submit-tip {
+    background-color: #fffdee;
+    border: 1px solid #edd28b;
+    color: #f60;
+    float: right;
+    padding: 0 3px;
+    height: 30px;
+    line-height: 30px;
+    margin: 10px 10px 0 0;
+}

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.king.bookstore.common.inteface.mapper.IBookClassMapper">
+    <insert id="saveBigClass" parameterType="java.util.List">
+        INSERT INTO `test`.`book_big_class` (`BBigType`) VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item})
+        </foreach>
+    </insert>
+
+    <insert id="saveSmallClass" parameterType="java.util.List">
+        INSERT INTO `test`.`book_small_class` (`BSType`, `BBid`) VALUES
+        <foreach collection="list" item="item" index="key" separator="," >
+            (#{item.bSType},#{item.bBid})
+        </foreach>
+    </insert>
+
+    <insert id="saveDetailBigClass" parameterType="java.util.List">
+        INSERT INTO `test`.`book_detail_big_class` (`BDBigDetail`, `BSid`) VALUES
+        <foreach collection="list" item="item" index="key" separator="," >
+            (#{item.bDBigDetail},#{item.bSid})
+        </foreach>
+    </insert>
+
+    <insert id="saveDetailSmallClass" parameterType="java.util.List">
+        INSERT INTO `test`.`book_detail_small_class` (`BDSmallType`, `BDBid`) VALUES
+        <foreach collection="list" item="item" index="key" separator="," >
+            (#{item.bDSmallType},#{item.bDBid})
+        </foreach>
+    </insert>
+
+    <select id="queryBigType" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT BBigType FROM test.book_big_class WHERE BBid=#{bBid}
+    </select>
+
+    <select id="querySmallType" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT BSType FROM test.book_small_class WHERE BSid=#{bSid}
+    </select>
+
+    <select id="queryBigDetailType" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT BDBigDetail FROM test.book_detail_big_class WHERE BDBid=#{bDBid}
+    </select>
+
+    <select id="queryBigDetailType1" parameterType="java.lang.Integer" resultType="com.king.bookstore.common.pojo.BookDetailBigClass">
+        SELECT * FROM test.book_detail_big_class WHERE BDBid=#{bDBid}
+    </select>
+
+    <select id="querySmallDetailType" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT BDSmallType FROM test.book_detail_small_class WHERE BDSid=#{bDSid}
+    </select>
+
+
+
+    <select id="queryBigTypeId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT BBid FROM test.book_big_class WHERE BBigType =#{bBigType}
+    </select>
+
+    <select id="querySmallTypeId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT BSid  FROM test.book_small_class WHERE BSType=#{bSType}
+    </select>
+
+    <select id="queryBigDetailTypeId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT BDBid  FROM test.book_detail_big_class WHERE BDBigDetail=#{bDBigDetail}
+    </select>
+
+    <select id="querySmallDetailTypeId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT * FROM test.book_detail_small_class WHERE BDSmallType=#{bDSmallType}
+    </select>
+
+
+
+    <select id="querySmallTypeList" parameterType="java.lang.Integer" resultType="com.king.bookstore.common.pojo.BookSmallClass">
+        SELECT * FROM book_small_class WHERE BBid=#{bBid}
+    </select>
+
+    <select id="queryDetailBigTypeList" parameterType="java.lang.Integer" resultType="com.king.bookstore.common.pojo.BookDetailBigClass">
+        SELECT * FROM book_detail_big_class WHERE BSid=#{bSid}
+    </select>
+
+    <select id="queryDetailSmallTypeList" parameterType="java.lang.Integer" resultType="com.king.bookstore.common.pojo.BookDetailSmallClass">
+        SELECT * FROM book_detail_small_class WHERE BDBid=#{bDBid}
+    </select>
+
+    <!--查找sub-->
+    <select id="querySub" resultType="com.king.bookstore.common.pojo.Sub">
+        SELECT * FROM test.sub WHERE subFlag=1
+    </select>
+
+
+
+    <!--删除类别-->
+    <delete id="deleteBigTypeByBBid" parameterType="java.lang.Integer">
+        DELETE  FROM test.book_big_class WHERE BBid=#{bBid}
+    </delete>
+
+    <delete id="deleteBSTypeByBSid" parameterType="java.lang.Integer">
+        DELETE  FROM test.book_small_class WHERE BSid=#{bSid}
+    </delete>
+
+    <delete id="deleteBDBigDetail" parameterType="java.lang.Integer">
+        DELETE  FROM  test.book_detail_big_class WHERE BDBid=#{bDBid}
+    </delete>
+
+    <delete id="deleteBDSmallType" parameterType="java.lang.Integer">
+        DELETE FROM  test.book_detail_small_class WHERE BDSid=#{bDSid}
+    </delete>
+
+    <!--查询类别-->
+
+    <select id="queryBigTypeList" resultType="com.king.bookstore.common.pojo.BookBigClass">
+        SELECT * FROM book_big_class
+    </select>
+
+    <select id="querySmallTypeList1" resultType="com.king.bookstore.common.pojo.BookSmallClass">
+        SELECT * FROM book_small_class
+    </select>
+
+    <select id="queryBigDetailTypeList" resultType="com.king.bookstore.common.pojo.BookDetailBigClass">
+        SELECT * FROM book_detail_big_class
+    </select>
+
+    <select id="querySmallDetailTypeList" resultType="com.king.bookstore.common.pojo.BookDetailSmallClass">
+        SELECT * FROM book_detail_small_class
+    </select>
+
+    <!--查询数量-->
+    <select id="queryBigTypeAmount" resultType="java.lang.Integer">
+        select count(BBid) from test.book_big_class;
+    </select>
+
+    <select id="querySmallTypeAmount" resultType="java.lang.Integer">
+        select count(BSid) from test.book_small_class;
+    </select>
+
+    <select id="queryBigDetailTypeAmount" resultType="java.lang.Integer">
+        select count(BDBid) from test.book_detail_big_class;
+    </select>
+
+    <select id="querySmallDetailTypeAmount" resultType="java.lang.Integer">
+        select count(BDSid) from test.book_detail_small_class;
+    </select>
+
+    <update id="updateBigDetail" parameterType="com.king.bookstore.common.pojo.BookDetailBigClass">
+        UPDATE test.book_detail_big_class SET BDBigDetail=#{bDBigDetail},Link=#{link},RecommendFlag=#{recommendFlag},BSid=#{bSid} WHERE BDBid=#{bDBid}
+    </update>
+
+
+</mapper>

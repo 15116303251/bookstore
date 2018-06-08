@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.king.bookstore.common.inteface.mapper.IQueryHelpMapper">
+
+    <select id="queryBDBid" resultType="com.king.bookstore.common.pojo.QueryHelp" parameterType="java.lang.String">
+        SELECT * FROM test.query_help WHERE BookName=#{content} OR Author=#{content} OR Publish=#{content}
+    </select>
+
+    <insert id="insertQueryHelp" parameterType="com.king.bookstore.common.dto.BookDto">
+        INSERT INTO `test`.`query_help` (`BookName`, `Author`, `Publish`,  `BDBid`, `BookCode`) VALUES (#{bookName}, #{author}, #{publish}, #{bDBid}, #{bookCode});
+    </insert>
+    
+    <update id="updateQueryHelp" parameterType="com.king.bookstore.common.dto.BookDto">
+        UPDATE `test`.`query_help` SET `Author`=#{author}, `Publish`=#{publish}, `BDBid`=#{bDBid}, `BookCode`=#{bookCode} WHERE (`BookName`=#{bookName});
+    </update>
+</mapper>

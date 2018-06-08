@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.king.bookstore.common.inteface.mapper.IBookMapper">
+
+    <insert id="saveBook" parameterType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT" >
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO test.${table} ( `BookName`, `BDSid`, `Author`, `Publish`, `PublishDate`, `BDBid`, `BBid`, `BSid`, `OriginalPrice`, `DiscountedPrice`, `Description`, `Stock`,`Image`,SmallImage1,SmallImage2,SmallImage3,SmallImage4,BookCode,Link,BussinessId) VALUES (
+   "${bookName}", ${bDSid}, "${author}", "${publish}", DATE_FORMAT( "${publishDate}", '%Y-%m-%d'), ${bDBid}, ${bBid}, ${bSid}, ${originalPrice},${discountedPrice}, "${description}", ${amount},"${image}","${smallImage1}","${smallImage2}","${smallImage3}","${smallImage4}","${bookCode}","goodToDetail",${bussinessId})
+
+    </insert>
+
+    <select id="queryTable" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT BDBigDetail FROM book_detail_big_class WHERE BDBid=#{bDBid}
+    </select>
+
+    <delete id="deleteBook" statementType="STATEMENT">
+        DELETE FROM ${tableName} WHERE Id=${id}
+    </delete>
+
+    <select id="queryBook" resultType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT">
+        SELECT * FROM ${tableName} WHERE Id=${id}
+    </select>
+
+    <update id="updateBook" parameterType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT">
+        UPDATE `test`.${table} SET `BookName`="${bookName}", `BDSid`=${bDSid}, `Author`="${author}", `Publish`="${publish}",PublishDate="${publishDate}", `BDBid`=${bDBid}, `BBid`=${bBid}, `BSid`=${bSid}, `OriginalPrice`=${originalPrice}, `DiscountedPrice`=${discountedPrice}, `Description`="${description}", `Stock`=${amount} , `image`="${image}",SmallImage1="${smallImage1}",SmallImage2="${smallImage2}",SmallImage3="${smallImage3}",SmallImage4="${smallImage4}" WHERE (`Id`=${id});
+    </update>
+
+    <select id="queryBookList" parameterType="com.king.bookstore.common.pojo.Book" resultType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT">
+        SELECT * FROM ${table}
+        <where>
+            <if test="author!=null">
+                AND Author="${author}"
+            </if>
+            <if test="publish!=null">
+                AND Publish="${publish}"
+            </if>
+            <if test="bookName!=null">
+                AND BookName="${bookName}"
+            </if>
+            <if test="bDBid!=-1">
+                AND BDBid=${bDBid}
+            </if>
+            <if test="bDSid!=-1">
+                AND BDSid=${bDSid}
+            </if>
+            <if test="bBid!=-1">
+                AND BBid=${bBid}
+            </if>
+            <if test="bSid!=-1">
+                AND BSid=${bSid}
+            </if>
+        </where>
+    </select>
+
+    <!--查询新书表-->
+    <select id="queryNewBookList" resultType="com.king.bookstore.common.dto.BookDto">
+        SELECT * FROM test.newbook WHERE Status=1
+    </select>
+
+    <!--查询数据库中新书的数量-->
+    <select id="queryNewBookNum" resultType="java.lang.Integer">
+        SELECT count(Status) FROM test.newbook
+    </select>
+
+    <select id="querySellBook" resultType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT">
+        SELECT * FROM test.${table} ORDER BY SaleNum  DESC
+    </select>
+
+    <select id="querySearchBookList" resultType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT">
+        SELECT * FROM test.${table} WHERE BookCode=${bookCode}
+    </select>
+
+    <select id="goBookPages" parameterType="map" resultType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT">
+        SELECT * FROM test.${table}
+        <where>
+            <if test="bookName!=null">
+                AND BookName="${bookName}"
+            </if>
+            <if test="author!=null">
+                AND Author="${author}"
+            </if>
+            <if test="publish!=null">
+                AND Publish="${publish}"
+            </if>
+        </where>
+    </select>
+
+
+    <select id="goBookPages1" parameterType="map" resultType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT">
+        SELECT * FROM test.${table}
+        <where>
+            <if test="bookName!=null">
+                AND BookName="${bookName}"
+            </if>
+            <if test="author!=null">
+                AND Author="${author}"
+            </if>
+            <if test="publish!=null">
+                AND Publish="${publish}"
+            </if>
+            <if test="bussinessId!=null">
+                AND BussinessId=${bussinessId}
+            </if>
+        </where>
+    </select>
+
+
+    <!--查询满足所有条件的书籍数量-->
+    <select id="selectBookAmount" parameterType="map" resultType="java.lang.Integer" statementType="STATEMENT">
+        SELECT count(Id) FROM test.${table}
+        <where>
+            <if test="bookName!=null">
+                AND BookName="${bookName}"
+            </if>
+            <if test="author!=null">
+                AND Author="${author}"
+            </if>
+            <if test="publish!=null">
+                AND Publish="${publish}"
+            </if>
+        </where>
+    </select>
+
+    <!--查询满足所有条件的书籍数量-->
+    <select id="selectBookAmount1" parameterType="map" resultType="java.lang.Integer" statementType="STATEMENT">
+        SELECT count(Id) FROM test.${table}
+        <where>
+            <if test="bookName!=null">
+                AND BookName="${bookName}"
+            </if>
+            <if test="author!=null">
+                AND Author="${author}"
+            </if>
+            <if test="publish!=null">
+                AND Publish="${publish}"
+            </if>
+
+            <if test="bussinessId!=null">
+                AND BussinessId=${bussinessId}
+            </if>
+        </where>
+    </select>
+
+
+    <!--根据bDBid获取所有的书籍-->
+    <select id="queryAllBook"  resultType="com.king.bookstore.common.pojo.Book" statementType="STATEMENT">
+        SELECT  * FROM test.${table}
+    </select>
+
+    <!--订单生成后修改库存-->
+    <update id="updateBookAmount" statementType="STATEMENT">
+        UPDATE `test`.${table} SET SaleNum=${num}+SaleNum,Stock=Stock-${num} WHERE Id=${id}
+    </update>
+
+    <!--//===============================================================================================================书籍收藏-->
+    <sql id="collectionQuery">
+        `id`, `bookId`, `image`, `bookName`, `author`, `bDBid`, `status`
+    </sql>
+    
+    <insert id="bookCollection" parameterType="com.king.bookstore.common.pojo.Collection">
+        INSERT INTO `test`.`book_collection` (`id`, `bookId`, `image`, `bookName`, `author`, `bDBid`, `status`,uid) VALUES (#{id}, #{bookId}, #{image}, #{bookName},#{author}, #{bDBid}, #{status},#{uid});
+    </insert>
+
+    <select id="findAllBookCollection" resultType="com.king.bookstore.common.pojo.Collection">
+         SELECT <include refid="collectionQuery"></include> FROM test.book_collection WHERE uid=#{uid}
+    </select>
+
+    <update id="updateCollectionStatus" parameterType="java.lang.Integer">
+        UPDATE `test`.`book_collection` SET  `status`=#{flag} WHERE id=#{id};
+    </update>
+
+    <delete id="deleteCollectionById" parameterType="java.lang.Integer">
+        DELETE FROM test.book_collection WHERE id=#{id}
+    </delete>
+    
+    <select id="collectionIsExist" resultType="com.king.bookstore.common.pojo.Collection">
+        SELECT <include refid="collectionQuery"></include> FROM test.book_collection WHERE bookId=#{bookId} AND bDBid=#{bDBid} AND uid=#{uid}
+    </select>
+    
+    <select id="collectionAmount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM test.book_collection WHERE uid=#{uid} AND status=1
+    </select>
+    
+    <delete id="collectionDelete">
+        DELETE FROM test.book_collection WHERE uid=#{uid} AND bookId=#{bookId} AND bDBid=#{bDBid}
+    </delete>
+
+
+</mapper>

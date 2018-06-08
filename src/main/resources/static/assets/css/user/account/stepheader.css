@@ -1,0 +1,82 @@
+.g-header {
+    width: 100%;
+    height: 72px;
+    border-bottom: 1px solid #ddd;
+}
+.g-header .g-header-in {
+    margin: 0 auto;
+}
+.media_screen_1200 .wrap {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.g-header .process-bar {
+    float: right;
+    width: 494px;
+}
+.md_process.md_process_len4 .md_process_wrap {
+    width: 494px;
+    background: url(http://s18.mogucdn.com/p1/160106/upload_ie3wkzrtmrtdozdfguzdambqgayde_157x23.png) 0 18px repeat-x;
+}
+.md_process .md_process_wrap {
+    position: relative;
+    height: 23px;
+    margin: 0 auto;
+    padding: 18px 0 24px;
+}
+.md_process.md_process_len4 .md_process_step1_5 .md_process_sd {
+    width: 90px;
+}
+.md_process.md_process_len4 .md_process_step2_5 .md_process_sd {
+    width: 247px;
+}
+.md_process.md_process_len4 .md_process_step3_5 .md_process_sd {
+    width: 404px;
+}
+.md_process.md_process_len4 .md_process_step4_5 .md_process_sd {
+    width: 494px;
+}
+.md_process.md_process_len4 .md_process_sd {
+    background: url(http://s16.mogucdn.com/p1/160106/upload_ie4wcntcmntdozdfguzdambqgqyde_157x23.png) 23px 0 repeat-x;
+}
+.md_process .md_process_sd {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    height: 23px;
+}
+.md_process.md_process_len4 .md_process_i1 {
+    left: 0px;
+}
+.md_process .md_process_i {
+    position: absolute;
+    top: 18px;
+    width: 23px;
+    height: 23px;
+    font: normal 14px/23px helvetica,tahoma,arial,sans-serif;
+    color: #fff;
+    text-align: center;
+}
+.md_process.md_process_len4 .md_process_step1 .md_process_i1 .md_process_tip, .md_process.md_process_len4 .md_process_step1_5 .md_process_i1 .md_process_tip {
+    color: #f46;
+}
+.md_process .md_process_tip, .md_process .md_process_tip_bt {
+    position: absolute;
+    top: 24px;
+    width: 100px;
+    height: 20px;
+    left: 50%;
+    margin-left: -50px;
+    font: normal 12px/20px helvetica,tahoma,arial,sans-serif;
+    color: #999;
+}
+.md_process.md_process_len4 .md_process_i2 {
+    left: 157px;
+}
+.md_process.md_process_len4 .md_process_i3 {
+    left: 314px;
+}
+.md_process.md_process_len4 .md_process_i4 {
+    left: 471px;
+}

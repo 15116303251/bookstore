@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.king.bookstore.common.inteface.mapper.IOrderMapper">
+
+    <!--取消订单-->
+    <delete id="cancelOrder">
+        DELETE FROM `test`.`orders` WHERE uid=#{uid} and order_number=#{orderNumber}
+    </delete>
+
+    <!--根据用户id获取所有订单-->
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultType="com.king.bookstore.common.pojo.Order">
+        select * from `test`.`orders` where uid=#{uid}
+    </select>
+
+    <!--生成订单-->
+    <insert id="insertOrder" parameterType="com.king.bookstore.common.pojo.Order">
+        INSERT INTO `test`.`orders` ( `order_number`, `uid`, `pay_price`, `status`, `create_time`) VALUES (#{orderNumber}, #{uid}, #{payPrice}, #{status}, now());
+    </insert>
+
+    <!--查询未被评论的订单-->
+    <select id="selectUncommentOrder" resultType="com.king.bookstore.common.pojo.Order">
+        select * from `test`.`orders` where uid=#{uid} and status=#{order_flag}
+    </select>
+
+    <!--更新订单的状态-->
+    <update id="changeOrderFlag">
+        update  `test`.`orders` set status=#{order_flag},is_pay=1 where order_number=#{order_id}
+    </update>
+
+    <!--根据订单id查询订单信息-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="com.king.bookstore.common.pojo.Order">
+        select `id`, `order_number` orderNumber, `uid`, `pay_price` payPrice, `is_pay` isPay, `pay_time` payTime, `is_ship` isShip, `ship_time` shipTime, `is_receipt` isReceipt, `receipt_time` receiptTime, `ship_number` shipNumber, `status`, `create_time` createTime, `update_time` updateTime, `stage_code` stageCode from `test`.`orders` where order_number=#{order_id}
+    </select>
+
+    <!--获取当前用户所交易的订单数-->
+    <select id="getOrderCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(id) FROM test.orders WHERE uid=#{userId}
+    </select>
+
+    <sql id="orderQuery">
+        id,order_number orderNumber,uid,pay_price payPrice,is_pay isPay,pay_time payTime,is_ship isShip,ship_time shipTime,is_receipt isReceipt,receipt_time receiptTime,
+        ship_number shipNumber,status,create_time createTime,update_time updateTime
+    </sql>
+    <!--查询所有的订单-->
+    <select id="selectAllOrder" resultType="com.king.bookstore.common.pojo.Order" parameterType="map">
+        SELECT <include refid="orderQuery" /> FROM test.orders
+        <where>
+            <if test="orderId!=null">
+                AND order_number=#{orderId}
+            </if>
+            <if test="isPay!=null">
+                AND is_pay=#{isPay}
+            </if>
+            <if test="isShip!=null">
+                AND is_ship=#{isShip}
+            </if>
+            <if test="isReceipt!=null">
+                AND is_receipt=#{isReceipt}
+            </if>
+        </where>
+    </select>
+
+    <!--查询所有的订单-->
+    <select id="selectAllOrderByUserId" resultType="com.king.bookstore.common.pojo.Order" parameterType="java.lang.Integer">
+        SELECT <include refid="orderQuery" /> FROM test.orders WHERE uid=#{userId}
+    </select>
+    <!--查询所有订单的数量-->
+    <select id="queryAllOrderAmount" resultType="java.lang.Integer">
+        SELECT count(order_number) from test.orders
+    </select>
+
+    <select id="selectBigId" resultType="java.lang.String">
+        SELECT order_number from test.orders WHERE id= (SELECT max(id) FROM test.orders)
+    </select>
+
+    <!--删除订单-->
+    <delete id="deleteOrderById" parameterType="java.lang.Integer">
+        DELETE  FROM test.orders WHERE id=#{id}
+    </delete>
+    <!--修改是否发货的状态-->
+    <update id="updateIsShipStatus">
+        update  `test`.`orders` set is_ship=#{status},ship_time=now() where id=#{id}
+    </update>
+    <!--修改是否收货的状态-->
+    <update id="updateIsReceiptStatus">
+        update  `test`.`orders` set is_receipt=#{status},receipt_time=now() where id=#{id}
+    </update>
+
+</mapper>

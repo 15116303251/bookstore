@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.king.bookstore.common.inteface.mapper.INewHotBookMapper">
+
+    <select id="queryNewHotBook" parameterType="java.lang.String" resultType="com.king.bookstore.common.pojo.Book">
+        SELECT BookName, Author, Publish, PublishDate, Status, OriginalPrice, DiscountedPrice, Description, Amount, Image,Link, BussinessId, BDBid,BookId id, SmallImage1, SmallImage2, SmallImage3, SmallImage4, SaleNum, Stock, NewBookFavorite FROM test.newbook WHERE NewBookFavorite=#{newBookFavorite} ORDER BY SaleNum DESC
+    </select>
+
+    <insert id="insertNewBook" parameterType="com.king.bookstore.common.pojo.Book">
+        INSERT INTO test.newbook ( `BookName`, `Author`, `Publish`, `PublishDate`, `BDBid`, `OriginalPrice`, `DiscountedPrice`, `Description`, `Stock`,`Image`,SmallImage1,SmallImage2,SmallImage3,SmallImage4,BookCode,Link,BookId,NewBookFavorite,Status,BussinessId) VALUES (
+   #{bookName}, #{author}, #{publish}, DATE_FORMAT( #{publishDate}, '%Y-%m-%d'), #{bDBid}, #{originalPrice},#{discountedPrice}, #{description}, #{amount},#{image},#{smallImage1},#{smallImage2},#{smallImage3},#{smallImage4},#{bookCode},"goodToDetail",#{bookId},#{newBookFavorite},#{status},#{bussinessId})
+    </insert>
+
+    <delete id="deleteNewBook" parameterType="com.king.bookstore.common.pojo.Book">
+        DELETE FROM test.newbook WHERE BookName=#{bookName}
+    </delete>
+
+    <update id="updateNewBook" parameterType="com.king.bookstore.common.pojo.Book">
+        UPDATE `test`.`newbook` SET  `BookName`=#{bookName}, `Author`=#{author}, `Publish`=#{publish}, `PublishDate`=#{publishDate}, `OriginalPrice`=#{originalPrice}, `DiscountedPrice`=#{discountedPrice}, `Description`=#{description}, `Image`=#{image}, `Link`='goodToDetail', `BDBid`=#{bDBid}, `SmallImage1`=#{smallImage1}, `SmallImage2`=#{smallImage2}, `SmallImage3`=#{smallImage3}, `SmallImage4`=#{smallImage4}, `Stock`=#{amount}, `NewBookFavorite`=#{newBookFavorite},Status=#{status}
+        WHERE  BDBid=#{bDBid} AND BookId=#{bookId}
+    </update>
+
+    <update id="updateNewBookAfterPay">
+        UPDATE `test`.`newbook` SET SaleNum=#{num},Stock=Stock-#{num} WHERE BookId=#{bookId} AND bDBid=#{bDBid}
+    </update>
+
+    <select id="findNewBook" resultType="java.lang.Integer">
+        SELECT count(Id) FROM `test`.`newbook` WHERE BookId=#{bookId} AND bDBid=#{bDBid}
+    </select>
+
+</mapper>

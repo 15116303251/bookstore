@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.king.bookstore.common.inteface.mapper.IUserMapper">
+
+
+    <select id="queryErpAccountByNameAndPsd" resultType="com.king.bookstore.common.pojo.Company">
+        SELECT * FROM test.erpuser a WHERE a.ErpUserName=#{username} AND a.ErpUserPsd=#{password}
+    </select>
+
+    <select id="queryAccount" resultType="com.king.bookstore.common.pojo.Account" parameterType="java.lang.Integer">
+        SELECT * FROM test.account a WHERE a.UserId=#{userId}
+    </select>
+
+    <select id="queryErpAccount" resultType="com.king.bookstore.common.pojo.Company" parameterType="java.lang.Integer">
+        SELECT * FROM test.erpuser a WHERE a.CompanyId=#{companyId}
+    </select>
+
+    <insert id="registerUser" parameterType="Map">
+        INSERT  INTO  test.account(UserName,UserEmail,UserSex,UserBirthday,UserRegisterDate,UserTel,UserPassword,UserProvince,UserCity) VALUES (#{userName},#{userEmail},#{userSex},DATE_FORMAT(#{userBirthday}, '%Y-%m-%d'),now(),#{userTel},#{userPassword},#{userProvince},#{userCity})
+    </insert>
+
+    <insert id="erpRegister" parameterType="Map">
+        INSERT INTO test.erpuser(ErpUserName,ErpUserPsd,CompanyName,CompanyAdd,CompanyEmail,CompanyTel,LinkUser,LinkUserPhone,Flag)VALUES (#{erpUserName},
+        #{erpUserPsd},#{companyName},#{companyAdd},#{companyEmail},#{companyTel},#{linkUser},#{linkUserPhone},0)
+    </insert>
+
+    <delete id="deleteAccountById" parameterType="java.lang.Integer">
+        DELETE FROM test.account WHERE UserId=#{UserId}
+    </delete>
+
+    <delete id="deleteErpAccountById" parameterType="java.lang.Integer">
+        DELETE FROM test.erpuser WHERE CompanyId=#{erpUserId}
+    </delete>
+
+    <update id="updateAccount" parameterType="com.king.bookstore.common.pojo.Account">
+    UPDATE `test`.`account` SET `UserSex`=#{userSex}, `UserBirthday`=#{userBirthday},`UserRegisterDate`=#{userRegisterDate},UserName=#{userName},
+    `UserTel`=#{userTel},`UserProvince`=#{userProvince},UserEmail=#{userEmail},UserState=#{userState},Grade=#{grade},
+    `UserCity`=#{userCity} WHERE UserId=#{userId};
+    </update>
+
+    <update id="updateErpAccount" parameterType="com.king.bookstore.common.pojo.Company">
+        UPDATE `test`.`erpuser` SET `ErpUserName`=#{erpUserName}, `CompanyName`=#{companyName}, `CompanyAdd`=#{companyAdd}, `CompanyEmail`=#{companyEmail}, `CompanyTel`=#{companyTel}, `LinkUser`=#{linkUser}, `LinkUserPhone`=#{linkUserPhone} WHERE (`CompanyId`=#{companyId});
+    </update>
+
+    <update id="updateAccountById" parameterType="java.lang.Integer" >
+        UPDATE test.account SET UserState=#{userState} WHERE UserId=#{userId}
+    </update>
+
+    <select id="queryAccountList" resultType="com.king.bookstore.common.pojo.Account" parameterType="com.king.bookstore.common.pojo.Account">
+        SELECT * FROM test.account
+        <where>
+            <if test="userName!=null">
+                UserName=#{userName}
+            </if>
+            <if test="userTel!=null">
+                AND UserTel=#{userTel}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCompanyList" resultType="com.king.bookstore.common.pojo.Company">
+        SELECT * FROM test.erpuser
+        <where>
+            <if test="companyName!=null">
+                CompanyName=#{companyName}
+            </if>
+            <if test="erpUserName!=null">
+               AND ErpUserName=#{erpUserName}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAccountById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * FROM test.account WHERE UserId=#{userId}
+    </select>
+
+    <select id="queryAccountByNameAndPsd" resultType="com.king.bookstore.common.pojo.Account" >
+        SELECT UserId userId,UserName userName,UserEmail userEmail,UserSex userSex,UserRegisterDate userRegisterDate,UserBirthday userBirthday,UserTel userTel,UserPayWay userPayWay,UserProvince userProvince,
+        UserCity userCity,UserState userState,Grade grade,WxOpenId wxOpenId FROM test.account a WHERE a.UserName=#{username} AND a.UserPassword=#{password}
+    </select>
+
+
+
+
+    <!--                         新的后台框架                     -->
+
+    <resultMap id="BaseResultMap" type="com.king.bookstore.common.pojo.Account">
+        <id column="UserId" jdbcType="INTEGER" property="userId" />
+        <result column="UserName" jdbcType="VARCHAR" property="userName" />
+        <result column="UserEmail" jdbcType="VARCHAR" property="userEmail" />
+        <result column="UserState" jdbcType="INTEGER" property="userState" />
+        <result column="UserSex" jdbcType="VARCHAR" property="userSex" />
+        <result column="UserRegisterDate" jdbcType="VARCHAR" property="userRegisterDate" />
+        <result column="UserBirthday" jdbcType="VARCHAR" property="userBirthday" />
+        <result column="Grade" jdbcType="INTEGER" property="grade" />
+        <result column="UserTel" jdbcType="VARCHAR" property="userTel" />
+        <result column="UserPayWay" jdbcType="VARCHAR" property="userPayWay" />
+        <result column="UserProvince" jdbcType="VARCHAR" property="userProvince" />
+        <result column="UserCity" jdbcType="VARCHAR" property="userCity" />
+        <result column="WxOpenId" jdbcType="TIMESTAMP" property="wxOpenId" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause">
+        <!-- WARNING - @mbggenerated This element is automatically generated by
+            MyBatis Generator, do not modify. This element was generated on Wed Aug 16
+            11:49:52 CST 2017. -->
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                    and
+                                    #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem"
+                                             open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <!-- WARNING - @mbggenerated This element is automatically generated by
+            MyBatis Generator, do not modify. This element was generated on Wed Aug 16
+            11:49:52 CST 2017. -->
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria"
+                     separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                    and
+                                    #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem"
+                                             open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <select id="countByExample" parameterType="com.king.bookstore.common.pojo.AccountExample"
+            resultType="java.lang.Integer">
+        <!-- WARNING - @mbggenerated This element is automatically generated by
+            MyBatis Generator, do not modify. This element was generated on Wed Aug 16
+            11:49:52 CST 2017. -->
+        select count(*) from test.account
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <!-- 获取用户分页数据 -->
+    <select id="queryAccountByExample" parameterType="map" resultMap="BaseResultMap">
+        select * from
+        test.account
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </select>
+
+    <!-- 批量删除用户 -->
+    <delete id="batchDelUser">
+        delete
+        from test.account
+        <where>
+            UserId in (
+            <foreach collection="array" index="index" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+            <![CDATA[  and UserName <> 'admin' ]]>
+        </where>
+    </delete>
+
+
+
+</mapper>
